@@ -33,22 +33,23 @@ public class Main {
         }
 
 
-        String[] blocks = userInput.split("[+-/*\"]");
+        String[] blocks = userInput.split("[+-/*\" ]");
 
 
-        if (blocks.length == 5) {
-            String st00 = blocks[0];
+        if (blocks.length == 7) {
             String st01 = blocks[1];
-            String st02 = blocks[2];
-            String st03 = blocks[3];
-            String st04 = blocks[4];
+            String st04 = blocks[6];
             result = calculated(st01, st04, operation);
             System.out.println(result);
         } else {
             String st01 = blocks[1];
-            String st03 = blocks[3];
+            String st03 = blocks[5];
             number = Integer.parseInt(st03);
             result = calculated(st01, number, operation);
+            if (result.length() > 40){
+                String result1= result.substring(0,40);
+                System.out.println(result1 + "...");
+            }else
             System.out.println(result);
 
         }
@@ -81,6 +82,10 @@ public class Main {
     }
 
     public static String calculated(String num1, int num, char op) {
+        result = num1;
+        if(num>10){
+            throw new IllegalArgumentException("Введите число от 1 до 10");
+        }
 
         switch (op) {
             case '+':
@@ -91,7 +96,7 @@ public class Main {
                 System.out.println("Неверный знак операции - (введите * или /)");
                 break;
             case '*':
-                for (int u = 0; u < num; u++) {
+                for (int u = 0; u < num; u++){
                     result = result + num1;
                 }
                 break;
