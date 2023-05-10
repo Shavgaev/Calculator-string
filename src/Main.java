@@ -10,8 +10,13 @@ public class Main {
     static String result;
 
     public static void main(String[] args) {
-        System.out.println("Введите выражение [\"a\" + \"b\", \"a\" - \"b\", \"a\" * x, \"a\" / x] где a и b - строки а x - число  от 1 до 10 включительно  + Enter ");
+        System.out.println("Введите выражение [\"a\" + \"b\", \"a\" - \"b\", \"a\" * x, \"a\" / x] где a и b - строки а x - число от 1 до 10 включительно + Enter ");
         String userInput = scanner.nextLine();
+        String [] userSplit = userInput.split(" ");
+        if (userSplit[0].length()>12){
+            throw new IllegalArgumentException("Введеная строка длинее 10 символов");
+
+        }
         char[] uchar = new char[26];
         ArrayList<String> strBlock00 = new ArrayList<>(10);
         for (int i = 0; i < userInput.length(); i++) {
@@ -33,15 +38,28 @@ public class Main {
         }
 
 
-        String[] blocks = userInput.split("[+-/*\" ]");
-
-
-        if (blocks.length == 7) {
-            String st01 = blocks[1];
-            String st04 = blocks[6];
+        String[] blocks = userInput.split("[, ?.@]+");
+        if (blocks.length == 3) {
+            String st01 = blocks[0];
+            String st04 = blocks[2];
             result = calculated(st01, st04, operation);
-            System.out.println(result);
-        } else {
+            System.out.println("\"\"");
+        }
+        else if (blocks.length == 5) {
+            String st01 = blocks[0]+" "+ blocks[1] +" "+ blocks[2];
+            String st04 = blocks[4];
+            result = calculated(st01, st04, operation);
+            System.out.println(result+"\"");
+        }
+
+
+        else if (blocks.length == 4) {
+            String st01 = blocks[0] +" "+ blocks[1];
+            String st04 = blocks[3];
+            result = calculated(st01, st04, operation);
+            System.out.println(result+"\"");
+        }
+        else {
             String st01 = blocks[1];
             String st03 = blocks[5];
             number = Integer.parseInt(st03);
@@ -50,7 +68,7 @@ public class Main {
                 String result1= result.substring(0,40);
                 System.out.println(result1 + "...");
             }else
-            System.out.println(result);
+                System.out.println(result);
 
         }
 
